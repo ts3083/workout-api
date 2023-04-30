@@ -1,5 +1,6 @@
 package exersite.workoutapi.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import exersite.workoutapi.config.jwt.JwtAuthenticationFilter;
 import exersite.workoutapi.config.jwt.JwtAuthorizationFilter;
 import exersite.workoutapi.repository.MemberRepository;
@@ -21,6 +22,7 @@ public class SecurityConfig {
 
     private final MemberRepository memberRepository;
     private final CorsConfig corsConfig;
+    private final ObjectMapper objectMapper;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -49,7 +51,7 @@ public class SecurityConfig {
             AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
             http
                     .addFilter(corsConfig.corsFilter())
-                    .addFilter(new JwtAuthenticationFilter(authenticationManager))
+                    .addFilter(new JwtAuthenticationFilter(authenticationManager, objectMapper))
                     .addFilter(new JwtAuthorizationFilter(authenticationManager, memberRepository));
         }
     }
