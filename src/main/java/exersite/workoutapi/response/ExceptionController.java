@@ -7,6 +7,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.Objects;
+
 @Slf4j
 @RestControllerAdvice // 모든 Controller 전역에서 발생할 수 있는 예외를 잡아 처리해주는 어노테이션 + ResponseBody
 public class ExceptionController {
@@ -30,6 +32,6 @@ public class ExceptionController {
         log.warn("------------MethodArgumentNotValidException-------------");
         e.printStackTrace();
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponse(e.getBindingResult().getFieldError().getDefaultMessage()));
+                .body(new ErrorResponse(Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage()));
     }
 }

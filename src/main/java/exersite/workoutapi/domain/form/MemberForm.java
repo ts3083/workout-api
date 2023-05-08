@@ -2,12 +2,14 @@ package exersite.workoutapi.domain.form;
 
 import exersite.workoutapi.domain.member.Address;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+@NoArgsConstructor
 @Getter
 @Setter
 public class MemberForm {
@@ -20,7 +22,7 @@ public class MemberForm {
      * 5. 비밀번호
      * */
     @NotBlank(message = "필수 사항")
-    private String loginId; // 로그인 아이디(이메일 형식)
+    private String email; // 로그인 아이디(이메일 형식)
     @NotBlank(message = "필수 사항")
     private String city; // 도시
     @NotBlank(message = "필수 사항")
@@ -40,7 +42,7 @@ public class MemberForm {
     public static MemberForm createMember(String loginId, Address address, String name,
                                           String nickname, String password) {
         MemberForm memberForm = new MemberForm();
-        memberForm.setLoginId(loginId);
+        memberForm.setEmail(loginId);
         memberForm.setCity(address.getCity());
         memberForm.setStreet(address.getStreet());
         memberForm.setZipcode(address.getZipcode());

@@ -1,8 +1,6 @@
 package exersite.workoutapi.domain.member;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +9,9 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id") // 연관관계가 복잡해질 때, 다른 연관관계를 순환 참조하느라 무한루프 발생할 수 있음을 id만 사용하는 것으로 해결
 public class Member {
 
