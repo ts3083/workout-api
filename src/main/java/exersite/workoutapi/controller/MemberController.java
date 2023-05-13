@@ -1,6 +1,7 @@
 package exersite.workoutapi.controller;
 
 import exersite.workoutapi.domain.form.MemberForm;
+import exersite.workoutapi.domain.member.Address;
 import exersite.workoutapi.response.BasicResponse;
 import exersite.workoutapi.response.GeneralResponse;
 import exersite.workoutapi.service.MemberService;
@@ -28,6 +29,16 @@ public class MemberController {
     @PostMapping("/new")
     public ResponseEntity<? extends BasicResponse> create(@Valid @RequestBody MemberForm memberForm) {
         // Valid 에러는 ExceptionController 에서 처리
+        return ResponseEntity.ok()
+                .body(new GeneralResponse<>(memberService.join(memberForm)));
+    }
+
+    @PostMapping("/dummy/{username}/{password}")
+    public ResponseEntity<? extends BasicResponse> dummyCreate(@PathVariable("username") String username,
+                                                               @PathVariable("password") String password) {
+        MemberForm memberForm = MemberForm.createMember(username + "@gmail.com",
+                new Address("seoul", "1", "1"),
+                username, username, password);
         return ResponseEntity.ok()
                 .body(new GeneralResponse<>(memberService.join(memberForm)));
     }

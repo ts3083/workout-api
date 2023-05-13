@@ -30,10 +30,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
+        System.out.println("login 시도중");
         // request에 담긴 username과 password를 파싱해서 자바 Object로 받기
         LoginRequestDto loginRequestDto = new LoginRequestDto();
         try {
             loginRequestDto = objectMapper.readValue(request.getInputStream(), LoginRequestDto.class);
+            System.out.println(loginRequestDto);
         } catch (Exception e) {
             e.printStackTrace();
         }
